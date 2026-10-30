@@ -73,7 +73,7 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Unit tests
-        run: node --test plugins/
+        run: node --test 'plugins/*.test.mjs'
 
       - name: Build
         # `bun run build` hangs in CI when remark plugins use

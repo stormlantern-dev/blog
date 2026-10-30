@@ -12,7 +12,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "render:diagrams": "node scripts/render-diagrams.mjs",
-    "test": "node --test plugins/"
+    "test": "node --test 'plugins/*.test.mjs'"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.4",
