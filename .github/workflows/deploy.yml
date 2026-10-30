@@ -72,6 +72,9 @@ jobs:
           NPM_GAR_TOKEN: ${{ steps.gar.outputs.token }}
         run: bun install --frozen-lockfile
 
+      - name: Unit tests
+        run: node --test plugins/
+
       - name: Build
         # `bun run build` hangs in CI when remark plugins use
         # worker_threads (our remark-d2 plugin loads @terrastruct/d2's

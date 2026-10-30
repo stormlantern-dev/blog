@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import TagChip from './TagChip.astro';
+import { minutesRead } from '../lib/posts';
 
 interface Props { post: CollectionEntry<'posts'>; }
 const { post } = Astro.props;
@@ -11,10 +12,13 @@ const { title, date, summary, tags } = post.data;
 const dateLabel = date.toLocaleDateString('en-US', {
   year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'
 });
+const minutes = await minutesRead(post);
 ---
 <article class="post-card">
   <p class="meta">
     <time datetime={date.toISOString()}>{dateLabel}</time>
+    <span class="sep" aria-hidden="true">·</span>
+    <span>{minutes} min read</span>
   </p>
   <h2><a href={`/posts/${post.id}/`}>{title}</a></h2>
   <p class="summary">{summary}</p>
@@ -37,6 +41,7 @@ const dateLabel = date.toLocaleDateString('en-US', {
     color: var(--sl-color-muted);
     margin: 0 0 var(--sl-space-2);
   }
+  .meta .sep { margin: 0 var(--sl-space-2); opacity: 0.5; }
 
   .post-card h2 {
     font-family: var(--sl-font-family-display);

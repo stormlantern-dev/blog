@@ -138,6 +138,11 @@ body is below the top of the viewport, and full when the end of the body
 reaches the bottom of the viewport. The cover image, comments and post
 navigation do not move it.
 
+Posts with a reading time under 3 minutes have no bar. Their body fits on a
+screen or two and never covers the viewport, so a bar tied to it would start
+part-filled: on the 93-word post it opened at 64% (measured 2026-10-30,
+1200×800).
+
 *Fit:* checked on the shortest and the longest post: empty at the top, full
 exactly as the last paragraph comes into view, unchanged while scrolling
 through comments.

@@ -4,6 +4,7 @@ import BaseLayout from './BaseLayout.astro';
 import '../styles/prose.css';
 import TagChip from '../components/TagChip.astro';
 import Giscus from '../components/Giscus.astro';
+import { minutesRead } from '../lib/posts';
 
 interface Props {
   post: CollectionEntry<'posts'>;
@@ -13,9 +14,21 @@ interface Props {
 const { post, prev, next } = Astro.props;
 const { title, date, summary, tags, cover, coverAlt } = post.data;
 const dateLabel = date.toISOString().slice(0, 10);
+const minutes = await minutesRead(post);
+// A post that fits on a screen or two has nothing to track: its body never
+// covers the viewport, so the bar would start part-filled (PRD 0057, R3).
+const MIN_MINUTES_FOR_PROGRESS = 3;
 ---
 <BaseLayout title={title} description={summary} image={cover} imageAlt={coverAlt} type="article">
-  <article class="container post">
+  <div class="container post">
+    <!-- Reading progress (PRD 0057, R3–R6): CSS only. It follows the article
+         body's view timeline (--article, scoped to .post), so the cover,
+         post navigation and comments do not move it. Browsers without
+         scroll-driven animations never show it. -->
+    {minutes >= MIN_MINUTES_FOR_PROGRESS && <div class="reading-progress" aria-hidden="true"></div>}
+    <!-- Only the post itself is inside <article>, so reader modes and
+         read-aloud (R13) skip the navigation and comments below. -->
+    <article>
     {cover && (
       <figure class="post-cover">
         <img src={cover} alt={coverAlt ?? ''} loading="eager" decoding="async" />
@@ -25,6 +38,8 @@ const dateLabel = date.toISOString().slice(0, 10);
       <h1>{title}</h1>
       <p class="meta">
         <time datetime={date.toISOString()}>{dateLabel}</time>
+        <span class="sep" aria-hidden="true">·</span>
+        <span>{minutes} min read</span>
         {tags.length > 0 && <span class="sep">·</span>}
         {tags.map((tag) => <TagChip tag={tag} />)}
       </p>
@@ -32,6 +47,7 @@ const dateLabel = date.toISOString().slice(0, 10);
     <div class="prose">
       <slot />
     </div>
+    </article>
 
     <nav class="post-nav" aria-label="Post navigation">
       {prev ? (
@@ -49,11 +65,48 @@ const dateLabel = date.toISOString().slice(0, 10);
     </nav>
 
     <Giscus />
-  </article>
+  </div>
 </BaseLayout>
 
 <style>
-  .post { padding-top: var(--sl-space-8); padding-bottom: var(--sl-space-8); }
+  .post {
+    padding-top: var(--sl-space-8);
+    padding-bottom: var(--sl-space-8);
+    /* Lets the bar, outside .prose, use the timeline .prose defines. */
+    timeline-scope: --article;
+  }
+
+  /* Reading progress ---------------------------------------------------- */
+  .reading-progress { display: none; }
+  @supports (animation-timeline: view()) {
+    .prose { view-timeline: --article block; }
+    .reading-progress {
+      display: block;
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: 3px;
+      z-index: 10;
+      pointer-events: none;
+      background: var(--sl-color-accent);
+      transform-origin: 0 50%;
+      transform: scaleX(0);
+      animation: reading-progress linear both;
+      animation-timeline: --article;
+      /* 0 when the body's top reaches the top of the viewport, 1 when its
+         end reaches the bottom. */
+      animation-range: contain 0% contain 100%;
+    }
+  }
+  @keyframes reading-progress {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reading-progress { transition: none; }
+  }
+  @media print {
+    .reading-progress { display: none !important; }
+  }
 
   .post-cover {
     margin: 0 0 var(--sl-space-8);
