@@ -4,12 +4,15 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import expressiveCode from 'astro-expressive-code';
 import rehypeInlineDiagrams from './plugins/rehype-inline-diagrams.mjs';
+import remarkReadingTime from './plugins/remark-reading-time.mjs';
 
 export default defineConfig({
   site: 'https://blog.stormlantern.nl',
   output: 'static',
   build: { format: 'directory' },
   markdown: {
+    // Reading time per post (PRD 0057, R1); MDX inherits this.
+    remarkPlugins: [remarkReadingTime],
     rehypePlugins: [rehypeInlineDiagrams],
   },
   integrations: [

@@ -11,7 +11,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "render:diagrams": "node scripts/render-diagrams.mjs"
+    "render:diagrams": "node scripts/render-diagrams.mjs",
+    "test": "node --test plugins/"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.4",
@@ -20,9 +21,11 @@
     "@dlouwers/stormlantern-components": "0.5.1",
     "@dlouwers/stormlantern-tokens": "0.4.0",
     "astro": "^6.3.1",
-    "astro-expressive-code": "^0.42.0"
+    "astro-expressive-code": "^0.42.0",
+    "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
-    "@terrastruct/d2": "^0.1.33"
+    "@terrastruct/d2": "^0.1.33",
+    "mdast-util-from-markdown": "^2.0.0"
   }
 }

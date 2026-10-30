@@ -1,4 +1,4 @@
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 
 export type Post = CollectionEntry<'posts'>;
@@ -59,4 +59,14 @@ export function byDateDesc(a: Post, b: Post): number {
 export async function getPublishedPosts(): Promise<Post[]> {
   const posts = await getCollection('posts', (post) => isPublished(post));
   return posts.sort(byDateDesc);
+}
+
+/**
+ * Minutes to read, as computed by plugins/remark-reading-time.mjs at build
+ * time (PRD 0057). The post page and every card read it from here, so they
+ * always show the same number.
+ */
+export async function minutesRead(post: Post): Promise<number> {
+  const { remarkPluginFrontmatter } = await render(post);
+  return remarkPluginFrontmatter.minutesRead as number;
 }
