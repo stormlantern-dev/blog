@@ -85,3 +85,19 @@ Remember the retirement plan, though. A recommendation from an investing app rea
 What a conversation does not fix is precision. When you already know what you want, changing 8% to 7% or swapping one holding for another, a field is faster than a sentence. A [study that let people choose](https://par.nsf.gov/biblio/10295857) between a conversational agent and an ordinary app screen for the same tasks found them "choosing the conventional GUI more often for transactional and time-sensitive tasks". Microsoft's guidelines ask the same: "Support efficient correction".
 
 So the form stayed, rewritten in plain language: holdings by name, a time window and an importance level as plain choices, and only the fields that matter for the kind of alert you picked. The conversation is for finding out what to watch. The form is for adjusting it. Neither replaces the other.
+
+# The pattern the industry settled on
+
+I am not the first to let people describe an automation in their own words. Two products that ship it today follow the same three steps.
+
+In Google Home, [Help me create](https://support.google.com/googlehome/answer/15684131) takes a sentence such as "Turn on the lights at 7 AM every morning" and returns an overview of the automation it built. From there you can "Ask again" to rephrase, or "Continue" to review it: its starters, conditions and actions, each editable in the app's ordinary editor. Only "Save" creates it. An automation with errors can be saved, but only as inactive, and it "can't be activated until all errors are fixed".
+
+Slack's Workflow Builder [does the same with workflows](https://slack.com/help/articles/32843655109395). You describe the workflow, Slack generates the steps, and you "add, remove, or edit steps" before you click "Finish Up", review the permissions and "Publish". Nothing runs before that.
+
+The shape is the same in both:
+
+1. **The model drafts, in the product's own structure.** Not a paragraph about what it would do, but the automation itself: starters, steps, conditions.
+2. **You check it where you would check anything else.** In the same editor, in the same words, with the same controls for fixing a detail. That is Microsoft's "Support efficient correction" again: you change one field instead of rephrasing the whole request.
+3. **A separate, deliberate step makes it real.** The model never flips the switch.
+
+Each step answers one of the problems from earlier. The draft in the product's own structure is where an ambiguity such as "once, or every time?" becomes visible, as a field you can read. Checking it in the ordinary editor keeps the form's precision. And the separate step is what makes a suggestion a suggestion, rather than advice that has already been acted on.
