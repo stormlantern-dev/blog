@@ -31,6 +31,8 @@ without needing a consent banner.
   layout shift, no third-party request, nothing stored unless the reader asks.
 - **G4.** A reader who comes back to a long post can pick up where they
   stopped, if they asked the blog to remember.
+- **G5.** A reader who would rather listen can use their browser's own
+  read-aloud feature, and hears the post, not the site around it.
 
 ## Non-goals
 
@@ -41,6 +43,10 @@ without needing a consent banner.
   visitor by default needs consent (see Constraints); the blog has no consent
   banner and should not need one. Phase 2 saves only after the reader turns
   it on.
+- **Generated audio or a podcast feed.** Separate idea, tracked on #58. Here only the browsers' built-in read-aloud is in scope.
+- **A "Listen" button built on the Web Speech API.** Voices differ per device,
+  and some Chrome desktop voices are generated online, sending the text to
+  Google, which conflicts with the privacy page.
 - **Syncing a reading position across devices.** That needs an account and a
   server; positions stay in the one browser.
 - **A table of contents, or "jump to section".** Separate idea, separate PRD.
@@ -166,6 +172,19 @@ pages can use it.
 
 *Fit:* not required for this PRD to be implemented.
 
+**R13 (SHOULD). Works with built-in read-aloud.** Post pages are read
+cleanly by the browsers' own read-aloud and reader modes: Safari's "Listen to
+Page", Edge's "Read aloud", Chrome's reading mode, and Firefox's Reader View
+with Narrate. Reading starts at the post title and stops at the end of the
+article body; the header, footer, post navigation, comments and the progress
+bar are not read. Figures are read by their description. The reading-time
+line from R2 may be read; the phase 2 toggle and link must not be read as
+part of the text.
+
+*Fit:* in each of the four, a listener hears the title, the body and the
+figure descriptions, and none of the site chrome; checked on one post with
+diagrams and code.
+
 ### Phase 2: remember my place
 
 **R8 (MUST). Off until the reader turns it on.** Each post's meta line, next
@@ -219,7 +238,7 @@ nobody removed it.
 
 ## Phasing
 
-1. **Reading time and the bar:** R1 to R6 (R7 optional). A remark plugin, two
+1. **Reading time and the bar:** R1 to R6, and R13 (R7 optional). A remark plugin, two
    template changes and one component of a few lines of CSS; no JavaScript, no
    storage. Useful on its own.
 2. **Remember my place:** R8 to R12. The only part with JavaScript and
