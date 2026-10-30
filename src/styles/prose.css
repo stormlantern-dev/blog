@@ -63,6 +63,14 @@
   height: auto;
   border-radius: var(--sl-radius-md);
 }
+.prose figure video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--sl-color-panel-border);
+  border-radius: var(--sl-radius-panel);
+  background: var(--sl-color-panel);
+}
 .prose figcaption {
   color: var(--sl-color-muted);
   font-size: var(--sl-font-size-sm);
