@@ -35,13 +35,14 @@ const imageURL = new URL(image, Astro.site);
     <meta name="generator" content={Astro.generator} />
 
     <script is:inline>
-      // Pre-paint theme bootstrap. Sets [data-theme] before stylesheets load
-      // so token CSS resolves to the right values without a flash.
-      (() => {
-        const stored = localStorage.getItem('sl-theme');
-        if (stored === 'dark' || stored === 'light') {
-          document.documentElement.setAttribute('data-theme', stored);
-        }
+      // sl-theme-boot from the design system (components 0.6.0), inlined so
+      // the stored theme applies before first paint. Same key as
+      // <sl-theme-toggle>; storage that throws leaves the OS theme.
+      (function () {
+        try {
+          var t = localStorage.getItem("sl-theme");
+          if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
       })();
     </script>
 
