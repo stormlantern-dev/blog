@@ -26,6 +26,11 @@ The small app that watches my brokerage account, the one from [The model never w
 
 Behind those sits a fair amount of machinery. Every hour a job checks each alert against the latest prices and news. Whatever matches goes to a language model, which scores how much it matters on a scale of one to ten, a step usually called triage. Only what scores high enough becomes a notification on my phone, and only once per alert per day.
 
+<figure class="d2-diagram" role="img" aria-label="A chain of four steps: your alerts, an hourly check against prices and news, triage that scores each match from 1 to 10, and a notification at most once a day. The first box, your alerts, is empty, so nothing flows to the rest.">
+  <img src="/img/diagrams/nobody-sets-up-alerts-pipeline.svg" alt="" />
+  <figcaption>Everything after the first step works. The first step is empty, so the hourly check has nothing to check, and nothing ever reaches triage or your phone.</figcaption>
+</figure>
+
 In September I looked at the production database. The hourly job had run more than two thousand times, and every run had reported the same thing: nothing to check. There were no alerts set up. Not one notification had ever been sent.
 
 Nothing was broken. The only way to set up an alert was a form on an admin page that asked for a rule type, a holding, a threshold and a time window, in the vocabulary of the code. I had written that form myself, and I had never filled it in.
@@ -70,6 +75,11 @@ From simple to professional, it is the same grammar: an instrument, a value to w
 
 None of them asks what you want to know. That translation is left to you. "Tell me if one position gets too big a share of my portfolio" has to become an instrument, a variable, an operator and a value, in the system's words, before anything is watched. That is exactly the work the default effect predicts people will put off.
 
+<figure class="d2-diagram" role="img" aria-label="At the top, what you want to know: is one position becoming too big a part of my portfolio. An arrow labelled 'you translate' leads to what the form asks: instrument ASML, value share of portfolio, comparison at least, number 35%, how often once or every time, until 31 December, where to send it, and a name for the notification.">
+  <img src="/img/diagrams/nobody-sets-up-alerts-grammar.svg" alt="" />
+  <figcaption>One question, eight fields. The translation from what you want to know into the form's terms is left to you.</figcaption>
+</figure>
+
 The grammar also hides a trap. "Tell me when it is above 200" can mean once, the moment it crosses 200, or every time it is checked while it stays above. Researchers call the first an event and the second a state, and a [study of if-this-then-that rules](https://hcrlab.cs.washington.edu/assets/pdfs/2015/huang2015ubicomp.pdf) found that people interpret the same rule inconsistently and make mistakes writing rules that mix the two. TradingView's frequency menu and Saxo's recurring flag are that same question, asked up front in the system's terms, before you have had a reason to care.
 
 # What a conversation fixes, and what it does not
@@ -83,6 +93,19 @@ For alerts, a conversation turned out to answer both with one question: what wou
 Remember the retirement plan, though. A recommendation from an investing app reads as advice. So every suggestion arrives as a separate proposal, and none of them is active until I confirm it. Nothing is switched on as a batch.
 
 What a conversation does not fix is precision. When you already know what you want, changing 8% to 7% or swapping one holding for another, a field is faster than a sentence. A [study that let people choose](https://par.nsf.gov/biblio/10295857) between a conversational agent and an ordinary app screen for the same tasks found them "choosing the conventional GUI more often for transactional and time-sensitive tasks". Microsoft's guidelines ask the same: "Support efficient correction".
+
+Put side by side, they are good at different things:
+
+<sl-table density="compact" stack>
+<table>
+<thead><tr><th></th><th>Conversation</th><th>Form</th></tr></thead>
+<tbody>
+<tr><th scope="row">Good at</th><td data-label="Conversation">Saying what you want in your own words; asking what is worth watching</td><td data-label="Form">Exact values; changing one detail</td></tr>
+<tr><th scope="row">Weak at</th><td data-label="Conversation">Precision; showing what is possible, unless you ask</td><td data-label="Form">Turning what you want into fields; knowing which threshold makes sense</td></tr>
+<tr><th scope="row">In this app</th><td data-label="Conversation">Finding out what to watch</td><td data-label="Form">Adjusting it</td></tr>
+</tbody>
+</table>
+</sl-table>
 
 So the form stayed, rewritten in plain language: holdings by name, a time window and an importance level as plain choices, and only the fields that matter for the kind of alert you picked. The conversation is for finding out what to watch. The form is for adjusting it. Neither replaces the other.
 
@@ -99,6 +122,11 @@ The shape is the same in both:
 1. **The model drafts, in the product's own structure.** Not a paragraph about what it would do, but the automation itself: starters, steps, conditions.
 2. **You check it where you would check anything else.** In the same editor, in the same words, with the same controls for fixing a detail. That is Microsoft's "Support efficient correction" again: you change one field instead of rephrasing the whole request.
 3. **A separate, deliberate step makes it real.** The model never flips the switch.
+
+<figure class="d2-diagram" role="img" aria-label="Three steps from left to right. One: the model drafts it in the product's structure; Google Home shows an overview, Slack generated steps, this app a card. Two: you check it in the ordinary editor; Home's Continue, Slack's step editor, this app's form. Three: a separate step makes it real; Home's Save, Slack's Publish, this app's Confirm.">
+  <img src="/img/diagrams/nobody-sets-up-alerts-pattern.svg" alt="" />
+  <figcaption>The same three steps in Google Home, Slack's Workflow Builder and the app in this post.</figcaption>
+</figure>
 
 Each step answers one of the problems from earlier. The draft in the product's own structure is where an ambiguity such as "once, or every time?" becomes visible, as a field you can read. Checking it in the ordinary editor keeps the form's precision. And the separate step is what makes a suggestion a suggestion, rather than advice that has already been acted on.
 
