@@ -57,3 +57,17 @@ Teams that run software in production learned the same lesson. Google's book on 
 So alerts live in a narrow band. Too few, and you hear nothing; that is where my app started. Too many, and you stop listening. A threshold that is right for someone else is wrong for you: a 5% daily move is news for a bond fund and an ordinary Tuesday for a small biotech. The bar I set for my own alerts is that they should be *actionable: something where I might want to step in*. Only I can say what that means for what I hold.
 
 The app's triage, the language model scoring each match, helps with the "too many" side. It cannot help with the other side, because it only judges what it was asked to watch. Alerts need personal settings. The question is not whether people should configure them, but how to make that cheap.
+
+# How investing apps let you set up alerts
+
+Look at how investing apps let you set up alerts today, from their own help pages.
+
+- [Robinhood](https://robinhood.com/us/en/support/articles/price-alerts/) has two systems. In the notification settings you choose whether moves in your holdings or watchlist alert you at 5% or at 10%. Separately, on a stock's chart, a bell lets you add "Price moves above" or "Price moves below" a price you type in.
+- [TradingView](https://www.tradingview.com/support/solutions/43000474415), built for active traders, adds a condition builder, an expiry, channels such as email or a webhook, and a choice of how often an alert fires: "Once only", "Once per bar", "Once per bar close", or "Once per minute or every time".
+- [Saxo's programming interface for price alerts](https://www.developer.saxo/openapi/referencedocs/vas/v1/pricealerts/post__vas__definitions) shows the model underneath: which price to watch, an operator, a target value, an expiry date, and a flag asking: "Is the alert only triggered once or will the alerts keep recurring until the alert expires".
+
+From simple to professional, it is the same grammar: an instrument, a value to watch, a comparison and a number. Then how often, until when, and where to send it. The apps differ only in how much of that grammar they show you.
+
+None of them asks what you want to know. That translation is left to you. "Tell me if one position gets too big a share of my portfolio" has to become an instrument, a variable, an operator and a value, in the system's words, before anything is watched. That is exactly the work the default effect predicts people will put off.
+
+The grammar also hides a trap. "Tell me when it is above 200" can mean once, the moment it crosses 200, or every time it is checked while it stays above. Researchers call the first an event and the second a state, and a [study of if-this-then-that rules](https://hcrlab.cs.washington.edu/assets/pdfs/2015/huang2015ubicomp.pdf) found that people interpret the same rule inconsistently and make mistakes writing rules that mix the two. TradingView's frequency menu and Saxo's recurring flag are that same question, asked up front in the system's terms, before you have had a reason to care.
