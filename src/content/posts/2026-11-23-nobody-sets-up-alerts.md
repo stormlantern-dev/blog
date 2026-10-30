@@ -43,3 +43,17 @@ So people do configure, a little, and mostly when something gets in their way. F
 One study matters more than the others for an app about money. When a US company [started enrolling new employees in its retirement plan automatically](https://www.nber.org/papers/w7682), many of them kept both the default contribution and the default fund. The authors put that down partly to inertia, and partly to "many employees taking the default as investment advice on the part of the company". In an investing app, a suggested threshold is read the same way: as a recommendation. I will come back to that.
 
 Alerts make all of this worse, because an empty list of alerts has no sensible default. The default is silence, and silence looks exactly like a quiet market.
+
+# Why alerts cannot run on defaults
+
+The obvious answer is to ship good defaults: warn everyone about every holding that drops more than 5% in a day, and be done. The places that have lived with alerts the longest show why that fails.
+
+Hospitals are full of alarms: monitors that beep when a heart rate, an oxygen level or a blood pressure leaves its range. In 2013 the Joint Commission, which accredits American hospitals, issued a [warning about alarm fatigue](https://digitalassets.jointcommission.org/api/public/content/f65e5c9df2b94000a99445e0a7877007). "It is estimated that between 85 and 99 percent of alarm signals do not require clinical intervention, such as when alarm conditions are set too tight; default settings are not adjusted for the individual patient or for the patient population". Staff who hear dozens of alarms that mean nothing learn to tune them out, including the one that does.
+
+The same happens on screens. A [review of 17 studies](https://pmc.ncbi.nlm.nih.gov/articles/PMC1447540) found that doctors override drug-safety warnings in their prescribing software in 49% to 96% of cases, often for good reason. And [a study of 112 primary-care clinicians](https://pmc.ncbi.nlm.nih.gov/articles/PMC5387195/) found that the "likelihood of reminder acceptance dropped by 30% for each additional reminder received per encounter". Not over months, through slow numbing, but in the moment: the more reminders at once, the less each one counts.
+
+Teams that run software in production learned the same lesson. Google's book on site reliability engineering puts it flatly: ["Every page should be actionable."](https://sre.google/sre-book/monitoring-distributed-systems/) A page is an alert that wakes someone up. "When pages occur too frequently, employees second-guess, skim, or even ignore incoming alerts." The book also advises alerting on symptoms, what the user would notice, rather than on every possible cause.
+
+So alerts live in a narrow band. Too few, and you hear nothing; that is where my app started. Too many, and you stop listening. A threshold that is right for someone else is wrong for you: a 5% daily move is news for a bond fund and an ordinary Tuesday for a small biotech. The bar I set for my own alerts is that they should be *actionable: something where I might want to step in*. Only I can say what that means for what I hold.
+
+The app's triage, the language model scoring each match, helps with the "too many" side. It cannot help with the other side, because it only judges what it was asked to watch. Alerts need personal settings. The question is not whether people should configure them, but how to make that cheap.
