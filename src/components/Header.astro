@@ -1,5 +1,4 @@
 ---
-import ThemeToggle from './ThemeToggle.astro';
 
 const path = Astro.url.pathname;
 const isActive = (href: string) => {
@@ -18,7 +17,7 @@ const isActive = (href: string) => {
       <a href="/tags/" class:list={['nav-link', { active: isActive('/tags/') }]}>Tags</a>
       <a href="/rss.xml" class="nav-link">RSS</a>
       <a href="https://stormlantern.nl/" class="nav-link">Projects</a>
-      <ThemeToggle />
+      <sl-theme-toggle></sl-theme-toggle>
     </nav>
   </div>
 </header>
@@ -66,5 +65,10 @@ const isActive = (href: string) => {
   .nav-link.active {
     color: var(--sl-color-ink);
     border-bottom-color: var(--sl-color-accent);
+  }
+  /* On a phone the label crowds the lockup; the icon stays, and the
+     button keeps "Theme: …" as its accessible name. */
+  @media (max-width: 480px) {
+    sl-theme-toggle::part(label) { display: none; }
   }
 </style>
