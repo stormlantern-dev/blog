@@ -101,3 +101,38 @@ The shape is the same in both:
 3. **A separate, deliberate step makes it real.** The model never flips the switch.
 
 Each step answers one of the problems from earlier. The draft in the product's own structure is where an ambiguity such as "once, or every time?" becomes visible, as a field you can read. Checking it in the ordinary editor keeps the form's precision. And the separate step is what makes a suggestion a suggestion, rather than advice that has already been acted on.
+
+# How I applied it
+
+The first change had nothing to do with conversation. The app got an alerts page that shows, in plain sentences, what is being watched ("Tell me when any holding moves 8% or more in a day") and every alert that was sent, with the reason the triage gave. Before that page, the honest answer to "is anything watching my portfolio?" was a database query.
+
+Then the conversation, under that list. You say what you want, or ask what it would recommend, and every change comes back as a card: the same sentence the list will show, and a Confirm button. Nothing is saved until you press it. The recordings below use an invented demo portfolio, not mine, with the real language model behind them.
+
+<figure>
+  <video data-autoplay controls loop muted playsinline preload="metadata" width="1100" height="1020" poster="/img/posts/nobody-sets-up-alerts/alert-chat-recommend-poster.jpg" aria-label="Screen recording of the alerts page.">
+    <source src="/img/posts/nobody-sets-up-alerts/alert-chat-recommend.mp4" type="video/mp4" />
+  </video>
+  <figcaption>Asked "What would you recommend for my portfolio?", the chat proposes three alerts with a reason for each: one holding growing past 35% of the portfolio, a volatile holding moving 8% in a day, and important news. Confirming the first adds it to the list above, as the same sentence.</figcaption>
+</figure>
+
+It did not work that well the first time. Asked the general question, the model gave general advice; only a more specific question ("looking at what I hold…") got answers about the actual portfolio, and even then it described its recommendations instead of proposing them. The model had the data all along. What it lacked was an instruction to recommend from it, whatever the wording, and to put each recommendation on a card straight away. Most of the work in a feature like this is in that kind of instruction, and part two is about how to test it.
+
+When it cannot do something, it says so. The app knows four kinds of alert, and an earnings date is not one of them:
+
+<figure>
+  <video data-autoplay controls loop muted playsinline preload="metadata" width="1100" height="1020" poster="/img/posts/nobody-sets-up-alerts/alert-chat-unmet-poster.jpg" aria-label="Screen recording of the alerts page.">
+    <source src="/img/posts/nobody-sets-up-alerts/alert-chat-unmet.mp4" type="video/mp4" />
+  </video>
+  <figcaption>Asked to report earnings dates, the chat answers "I can't watch for that yet" and offers the closest thing it can do: an alert for important news about that holding.</figcaption>
+</figure>
+
+That sentence is fixed: the app adds it if the model leaves it out. And the request is kept. Every "I can't watch for that yet" adds a line to a list of things asked for and not available, which is a better guide to the next kind of alert than guessing.
+
+For precision there is still the form, rewritten in the same plain language: holdings by name, the threshold, a time window and an importance level as plain choices.
+
+<figure>
+  <video data-autoplay controls loop muted playsinline preload="metadata" width="1100" height="1020" poster="/img/posts/nobody-sets-up-alerts/alert-form-adjust-poster.jpg" aria-label="Screen recording of changing an alert.">
+    <source src="/img/posts/nobody-sets-up-alerts/alert-form-adjust.mp4" type="video/mp4" />
+  </video>
+  <figcaption>Changing one number: the concentration alert goes from 35% to 30% of the portfolio in the form, and the list shows the new sentence.</figcaption>
+</figure>
