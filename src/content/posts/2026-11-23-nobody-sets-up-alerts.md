@@ -60,7 +60,7 @@ The app's triage, the language model scoring each match, helps with the "too man
 
 # How investing apps let you set up alerts
 
-Look at how investing apps let you set up alerts today, from their own help pages.
+Three examples, each from the company's own documentation:
 
 - [Robinhood](https://robinhood.com/us/en/support/articles/price-alerts/) has two systems. In the notification settings you choose whether moves in your holdings or watchlist alert you at 5% or at 10%. Separately, on a stock's chart, a bell lets you add "Price moves above" or "Price moves below" a price you type in.
 - [TradingView](https://www.tradingview.com/support/solutions/43000474415), built for active traders, adds a condition builder, an expiry, channels such as email or a webhook, and a choice of how often an alert fires: "Once only", "Once per bar", "Once per bar close", or "Once per minute or every time".
