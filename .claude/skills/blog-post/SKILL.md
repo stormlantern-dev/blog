@@ -44,6 +44,12 @@ Pushing a branch is publishing it, before any merge. So:
    - Stay vendor-neutral when the idea is the subject. Name the author's vendor
      once, next to its equivalents, and mark provider-specific syntax as one
      example of many.
+4. **Decide on a visual for every section, and say what you decided.** Before
+   writing a section, ask whether a diagram, table, screenshot or recording
+   would carry information the reader needs; see "Visuals" below. When you
+   hand the section over, name the decision, including "none, because …". A
+   section-by-section table of proposals is a good way to put it to the
+   author once the outline stands.
 
 ## Claims
 
@@ -60,6 +66,44 @@ Pushing a branch is publishing it, before any merge. So:
   Azure plugins do not "just work" from a home cluster (those clouds need a
   publicly reachable issuer first). When saying where something applies, say
   exactly where, and what else it needs there.
+
+## Visuals
+
+Readers look at images that carry information and skip the ones that only
+decorate ([NN/g](https://www.nngroup.com/articles/photos-as-web-content/)).
+Google's documentation style guide puts it as "Use images only when they
+provide useful visual explanations of information"
+([source](https://developers.google.com/style/images)). So the question per
+section is not "would a picture be nice" but "what would the reader see that
+the text cannot show as well".
+
+Pick the form by what it has to show:
+
+| It has to show | Use |
+|---|---|
+| Steps over time, who talks to whom | D2 `sequence_diagram` |
+| Parts and how they connect, a pipeline | D2 diagram, few boxes |
+| A comparison of options or properties | A table (text, not an image) |
+| How a UI behaves over a few seconds | A short screen recording (see below) |
+| One UI state | A cropped screenshot |
+| Atmosphere | The cover only, never mid-post |
+
+Do not:
+
+- use images of text, code or terminal output: use the text itself;
+- chart numbers from studies with different methods side by side, which
+  suggests a comparison the data cannot make;
+- refer to a visual by position ("the diagram above").
+
+Every visual:
+
+- is introduced by a complete sentence;
+- has a caption that is a complete sentence;
+- has a text alternative: a short `aria-label` or `alt` (around 155
+  characters or less), and for a diagram, a longer description of what it
+  shows in the caption or the surrounding text
+  ([W3C](https://www.w3.org/WAI/tutorials/images/complex/));
+- adds nothing the text does not also say: anything new goes in the text too.
 
 ## Diagrams
 
@@ -89,6 +133,35 @@ D2, pre-rendered to SVG (README). What worked and what did not:
 - Keep the column count small and the headers short, and check the table at
   phone width as well as desktop.
 - Captions and aria-labels are final text. Search for `DRAFT` before merging.
+
+## Screen recordings
+
+For a UI that does something over a few seconds, such as a chat answering
+or a list updating:
+
+- **Video, not GIF.** MP4 (H.264, `-movflags +faststart`, about CRF 26):
+  roughly a tenth of the size of a GIF and sharper
+  ([web.dev](https://web.dev/articles/replace-gifs-with-videos)). Check
+  whether WebM is actually smaller before adding it as a second source.
+- **Markup**, in a `<figure>` without blank lines:
+  `<video data-autoplay controls loop muted playsinline preload="metadata"
+  width=… height=… poster=… aria-label="…">` with an MP4 `<source>`, and a
+  `<figcaption>` that says in words what happens.
+- **Playback.** `PostLayout.astro` plays `video[data-autoplay]` only while it
+  is in view, never under `prefers-reduced-motion`, and keeps a pause by the
+  reader. The controls stay: moving content that starts by itself and lasts
+  more than five seconds needs a way to pause it (WCAG 2.2.2, level A).
+- **Content.** Record demo data, never the author's own: no real holdings,
+  amounts, accounts or emails. Hide personal data with an opaque overlay, not
+  a blur. Remove development-only chrome (environment banners, footers) for
+  the recording only, without changing the app, and turn off spellcheck
+  underlines.
+- **Make it repeatable.** Script it with Playwright: sign in and set up off
+  camera, type at a fixed pace, record at a fixed viewport, and keep the
+  script so the clip can be re-recorded when the UI changes. A recording
+  against a real language model differs per take; say so if it matters.
+- **Poster:** a late frame (JPEG), shown before playback and under reduced
+  motion.
 
 ## Covers
 

@@ -48,6 +48,36 @@ const MIN_MINUTES_FOR_PROGRESS = 3;
       <slot />
     </div>
     </article>
+    <script>
+      // Screen recordings in posts (<video data-autoplay>): play while in
+      // view, unless the reader asked for reduced motion. Always muted, and
+      // the controls stay, so anyone can pause (WCAG 2.2.2).
+      const still = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const videos = document.querySelectorAll<HTMLVideoElement>('video[data-autoplay]');
+      if (videos.length && !still.matches && 'IntersectionObserver' in window) {
+        const seen = new IntersectionObserver((entries) => {
+          for (const e of entries) {
+            const v = e.target as HTMLVideoElement;
+            if (e.isIntersecting) {
+              if (!v.dataset.readerPaused) v.play().catch(() => {});
+            } else if (!v.paused) {
+              v.dataset.scrollPaused = '1';
+              v.pause();
+            }
+          }
+        }, { threshold: 0.6 });
+        videos.forEach((v) => {
+          v.muted = true;
+          // A pause the reader made sticks; scrolling back does not undo it.
+          v.addEventListener('pause', () => {
+            if (v.dataset.scrollPaused) delete v.dataset.scrollPaused;
+            else v.dataset.readerPaused = '1';
+          });
+          v.addEventListener('play', () => { delete v.dataset.readerPaused; });
+          seen.observe(v);
+        });
+      }
+    </script>
 
     <nav class="post-nav" aria-label="Post navigation">
       {prev ? (
