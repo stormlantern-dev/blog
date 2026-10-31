@@ -4,6 +4,8 @@ date: 2026-11-23
 summary: "My investing app could watch my portfolio and warn me, and in months it never sent a single alert, because nobody had set one up. What research says about settings and alarm fatigue, and what changed when setting up an alert became a conversation."
 tags: [ux, llm]
 draft: false
+cover: /img/posts/nobody-sets-up-alerts/cover.png
+coverAlt: "Isometric illustration on a dark navy grid. On the left, a grey control panel full of sliders, dials and switches, with a column of small unlit bells beside it. In the centre, a glowing teal speech bubble with a smaller reply bubble, and a trace running from them to the right. On the right, two bells on pedestals glow orange and coral, ringed with light, next to a blank card."
 ---
 
 <!--
@@ -88,7 +90,7 @@ A conversation moves the translation to the other side. You say "tell me if anyt
 
 Chat interfaces have well-known weaknesses too. A text box does not show what it can do, which is why the first of Microsoft's [guidelines for human-AI interaction](https://www.microsoft.com/en-us/haxtoolkit/library/) is "Make clear what the system can do". And people often cannot put what they want into words. Writing about image generators, the same group calls this the [articulation barrier](https://www.nngroup.com/articles/ai-articulation-barrier/): users "lack the vocabulary to write the required prompt".
 
-For alerts, a conversation turned out to answer both with one question: what would you recommend? When I asked, the app looked at what I hold and proposed alerts that fit it: a warning if my largest position grows past a share I would want to know about, a daily-move threshold on the holding that moves most. I did not need to know the rule types, or the words for them.
+For alerts, a conversation turned out to answer both with one question: what would you recommend? When I asked, the app looked at what I hold and proposed up to three alerts that fit it: a warning if my largest position grows past a share I would want to know about, a daily-move threshold on the holding that moves most, news about anything I own. I did not need to know the rule types, or the words for them. And when a proposal would only repeat an alert I already have, it says so, instead of quietly setting up a second one that sends the same warnings twice.
 
 Remember the retirement plan, though. A recommendation from an investing app reads as advice. So every suggestion arrives as a separate proposal, and none of them is active until I confirm it. Nothing is switched on as a batch.
 
@@ -164,3 +166,19 @@ For precision there is still the form, rewritten in the same plain language: hol
   </video>
   <figcaption>Changing one number: the concentration alert goes from 35% to 30% of the portfolio in the form, and the list shows the new sentence.</figcaption>
 </figure>
+
+# What I don't know yet
+
+The conversation has been live since 27 October. That is a few weeks, with one person using it, and that person wrote it. It proves the feature can work; it does not prove the argument of this post.
+
+<!-- DRAFT: Dirk, what is true in production since 27 Oct? E.g. how many alerts are set up, via chat or form, and has one been sent? Without that, this paragraph goes. -->
+What I can say: the alerts page now lists alerts, which the database never did in the months before.
+
+What would show I am wrong:
+
+- **The alerts go quiet again.** If I stop opening the conversation after the first evening, it was a better setup wizard, not a better way to configure. That would still be worth having, but it is a smaller claim. The test is whether I come back to change something when the portfolio changes.
+- **The alerts turn into noise.** Section three was about what happens when warnings outnumber the ones worth acting on. A recommended threshold that fires every other day is the same failure from the other side. The page shows every alert that was sent and why, so this one I will see.
+- **The list of unmet requests stays empty.** It is meant to tell me which kind of alert to build next. If nothing lands there, either the four kinds cover what I want, or I have stopped asking.
+- **The recommendations stay generic.** They are only as good as the instruction behind them, and a model update can change how it reads that instruction. Part two is about catching that before it ships.
+
+None of this generalises past one person and one app. The research in the first half of this post does; the rest is a report of one attempt to act on it.
