@@ -171,8 +171,7 @@ For precision there is still the form, rewritten in the same plain language: hol
 
 The conversation has been live since 27 October. That is a few weeks, with one person using it, and that person wrote it. It proves the feature can work; it does not prove the argument of this post.
 
-<!-- DRAFT: Dirk, what is true in production since 27 Oct? E.g. how many alerts are set up, via chat or form, and has one been sent? Without that, this paragraph goes. -->
-What I can say: the alerts page now lists alerts, which the database never did in the months before.
+What I can say: four alerts are set up, after months of none. And one of them has already shown the next problem. It watched for a holding to reach a price, and I sold the holding at that price. The alert is still there, and the list now reads "Tell me about the price of a holding no longer in my portfolio". It is honest, and it is also an alert that can never fire again, waiting for me to notice it. Setting up an alert is one decision; an alert also has to end when its reason does.
 
 What would show I am wrong:
 
