@@ -166,6 +166,10 @@ or a list updating:
   with `addInitScript` and move with its `glide`/`glideClick` instead of
   `locator.click()`, which makes the pointer jump. Init scripts run on page
   loads only, not after `page.setContent()`.
+- **Move after a navigation.** The recorder only captures a frame when the
+  page repaints, so a clip can end on the page before a form submit even
+  though the browser shows the new one. Wait for the new content, then move
+  the pointer to it: that shows the reader the result and forces the frames.
 - **Poster:** a late frame (JPEG), shown before playback and under reduced
   motion.
 
