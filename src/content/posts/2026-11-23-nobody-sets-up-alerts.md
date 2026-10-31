@@ -171,7 +171,7 @@ For precision there is still the form, rewritten in the same plain language: hol
 
 The conversation has been live since 27 October. That is a few weeks, with one person using it, and that person wrote it. It proves the feature can work; it does not prove the argument of this post.
 
-What I can say: four alerts are set up, after months of none. And one of them has already shown the next problem. It watched for a holding to reach a price, and I sold the holding at that price. The alert is still there, and the list now reads "Tell me about the price of a holding no longer in my portfolio". It is honest, and it is also an alert that can never fire again, waiting for me to notice it. Setting up an alert is one decision; an alert also has to end when its reason does.
+What I can say: four alerts are set up, after months of none. And one of them has already shown the next problem. It watched for a holding to reach a price, and I had a limit order at that same price. The order filled, and the alert never went off. The hourly check compares the price in the latest snapshot of the portfolio with the one before, for the holdings in it. By the next check the holding was sold, so there was nothing left to compare: the event the alert was for is the event that removed it from view. The alert is still there, and the list now reads "Tell me about the price of a holding no longer in my portfolio". It is honest, and it is also an alert that can never fire again, waiting for me to notice it. Setting up an alert is one decision; an alert also has to end when its reason does.
 
 What would show I am wrong:
 
