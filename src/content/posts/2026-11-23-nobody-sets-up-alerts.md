@@ -8,20 +8,6 @@ cover: /img/posts/nobody-sets-up-alerts/cover.png
 coverAlt: "Isometric illustration on a dark navy grid. On the left, a grey control panel full of sliders, dials and switches, with a column of small unlit bells beside it. In the centre, a glowing teal speech bubble with a smaller reply bubble, and a trace running from them to the right. On the right, two bells on pedestals glow orange and coral, ringed with light, next to a blank card."
 ---
 
-<!--
-DRAFT. Prose rules, from the blog-post skill:
-- Reader: engineers and product people. They do not know the app, its code
-  or its repository. Explain every term the first time, in one plain
-  sentence, or do not use it.
-- No issue numbers, internal file names, paths or resource names.
-- Nothing about holdings, amounts or the author's portfolio percentages.
-- Usage claims only for what has actually happened (live since 27 Oct 2026).
-- Research and vendor claims only with a checked primary source, linked.
-- Stay vendor-neutral where the idea is the subject.
-- The author is the only user. No customers, users or testers.
-Outline: issue #64.
--->
-
 # An alert system that never sent an alert
 
 The small app that watches my brokerage account, the one from [The model never writes a number](/posts/2026-11-02-the-model-never-writes-a-number/), has been able to warn me about things for months. It knows four kinds of alert: a holding that moves more than some percentage in a day, a holding that grows past some share of the portfolio, a price that crosses a level, and important news about something I own.
