@@ -1,0 +1,14 @@
+direction: right
+
+rules: "Your alerts\n(none)" {
+  style.stroke-dash: 4
+}
+check: "Hourly\ncheck"
+triage: "Triage,\n1 to 10"
+notify: "Notification,\nat most\nonce a day"
+
+rules -> check {
+  style.stroke-dash: 4
+}
+check -> triage
+triage -> notify
