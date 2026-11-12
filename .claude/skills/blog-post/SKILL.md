@@ -160,6 +160,16 @@ or a list updating:
   camera, type at a fixed pace, record at a fixed viewport, and keep the
   script so the clip can be re-recorded when the UI changes. A recording
   against a real language model differs per take; say so if it matters.
+- **Show the pointer.** Playwright records without a mouse pointer, so a
+  reader cannot see what was clicked. `record-cursor.mjs` next to this file
+  draws an arrow and a ring on every click from real mouse events; add it
+  with `addInitScript` and move with its `glide`/`glideClick` instead of
+  `locator.click()`, which makes the pointer jump. Init scripts run on page
+  loads only, not after `page.setContent()`.
+- **Move after a navigation.** The recorder only captures a frame when the
+  page repaints, so a clip can end on the page before a form submit even
+  though the browser shows the new one. Wait for the new content, then move
+  the pointer to it: that shows the reader the result and forces the frames.
 - **Poster:** a late frame (JPEG), shown before playback and under reduced
   motion.
 
